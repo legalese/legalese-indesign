@@ -1,0 +1,44 @@
+
+* The Legalese Robot
+
+robot@legalese.io is an account at Google.
+
+It makes use of two services: Drive and Gmail.
+
+Under Drive, a script runs once a minute to move new "Shared With Me" folders into "My Drive / incoming".
+
+At any time, anyone on the Internet can share with the Robot a folder containing a specially formatted XML file.
+
+The Robot will accept the folder share.
+
+* The InDesign "Server"
+
+There exists a Mac Mini running InDesign Desktop Edition (as opposed to Server Edition). It runs an xml2pdf-sleep.jsx script, which notices new XML files and converts them to PDF.
+
+It also runs the Google Drive service in the background, syncing its drive to the local filesystem.
+
+* The Legalese Robot's XML-to-PDF Workflow
+
+So, the steps are:
+
+1. User runs "Generate PDFs".
+2. The Google App code.gs creates a new folder in Google Drive.
+3. The Google App code.gs obtains and fills the XML templates.
+4. The XML templates get saved into the new folder.
+5. The Google App shares the new folder with robot@legalese.io.
+6. robot@legalese.io has a spreadsheet called "browser".
+7. A Google Apps script is bound to that spreadsheet.
+8. The browser script is called robot-legalese.gs.
+9. It is configured to run once a minute.
+10. It looks for folders that have been "Shared With Me".
+11. It accepts those folders into "My Drive".
+12. robot@legalese.io's Google Drive on the Mac Mini syncs the folder to local disk.
+13. InDesign's xml2pdf-sleep.jsx notices the new XML in that folder.
+14. xml2pdf-sleep.jsx converts the XML to PDF and saves the PDF into the same folder.
+15. The resulting PDF gets synced by the Google Drive app back into the cloud.
+16. The end-user observes the PDF has appeared in the new folder.
+
+* Security Considerations
+
+The robot should probably only accept folder shares from trusted senders.
+
