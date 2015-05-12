@@ -252,6 +252,17 @@ function initialAdjustments(doc) {
   if (XMLRoot.xmlAttributes.item("font-style").isValid) {
 	doc.paragraphStyles.item("[Basic Paragraph]").fontStyle = XMLRoot.xmlAttributes.item("font-style").value;
   }
+
+  // TODO: if a paragraph ends with :-? then set its keepWithNext to 1
+  for (var story_i = 0; story_i<doc.stories.length; story_i++) {
+	var paras = doc.stories.item(story_i).paragraphs;
+	for (var pi=0; pi<paras.length; pi++) {
+	  var para = paras.item(pi);
+	  if (para.contents.match(/:-*$/)) {
+		para.keepWithNext = 1;
+	  }
+	}
+  }
 }
 
 // -------------------------------------------------- setSignaturePageToAMaster
