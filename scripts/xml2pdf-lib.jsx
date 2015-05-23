@@ -150,7 +150,7 @@ function identifyIndtFile(mode, path, xmlFile) {
 
 	if (templateSpec != undefined && templateSpec.length) {
 	  logToFile("identifyIndtFile: read templateSpec = " + templateSpec + " out of XML file.");
-	  path = "~/non-db-src/legalese/build/" + templateSpec;
+	  path = "~/non-db-src/l/indesign/indt/" + templateSpec;
 	  mode = "hardcoded";
 	}
 	else {
