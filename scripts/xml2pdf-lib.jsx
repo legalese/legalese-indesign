@@ -625,10 +625,16 @@ function exportToPDF(doc, xmlFile) {
   var pdfPath = xmlFile.fsName.replace(/\.xml$/, ".pdf");
   with(app.interactivePDFExportPreferences){
 	viewPDF = false;
+	pdfJPEGQuality = PDFJPEGQualityOptions.HIGH;
+	rasterResolution = 300;
   }
-  doc.exportFile(ExportFormat.interactivePDF,
-				 new File(pdfPath),
-				 false);
+  try {
+	doc.exportFile(ExportFormat.interactivePDF,
+				   new File(pdfPath),
+				   false);
+  } catch (e) {
+	logToFile("exportToPDF: failed: " + e);
+  }
 }
 
 // -------------------------------------------------- saveAsINDD
