@@ -8,8 +8,8 @@ main();
 function main(){
 
   var interactive = true;
-  var saveIndd    = false;
-  var keepOpen    = false;
+  var saveIndd    = true;
+  var keepOpen    = true;
   
   var xmlFiles = identifyXmlFiles("recurse",  // recurse | queryUser
 								  Folder("~/Google Drive/Legalese Root"));
