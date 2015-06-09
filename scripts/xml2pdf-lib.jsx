@@ -253,7 +253,7 @@ function initialAdjustments(doc) {
 	doc.paragraphStyles.item("[Basic Paragraph]").fontStyle = XMLRoot.xmlAttributes.item("font-style").value;
   }
 
-  // TODO: if a paragraph ends with :-? then set its keepWithNext to 1
+  // if a paragraph ends with :-? then set its keepWithNext to 1
   for (var story_i = 0; story_i<doc.stories.length; story_i++) {
 	var paras = doc.stories.item(story_i).paragraphs;
 	for (var pi=0; pi<paras.length; pi++) {
@@ -425,7 +425,7 @@ function ParagraphOverrides(doc, importMaps){
   this.xpath = "//*[@override]";
   this.apply = function(myElement, myRuleProcessor){
 
-	var overrides = myElement.xmlAttributes.item("override").value.split(/ /); // TODO: a more sophisticated parser would be nice to allow expressions to contain spaces
+	var overrides = myElement.xmlAttributes.item("override").value.split(/  +/); // separate key/value pairs using two spaces
 	for (var i=0; i<overrides.length; i++) {
 	  var kv = overrides[i].split("=");
 	  var key = kv[0];
