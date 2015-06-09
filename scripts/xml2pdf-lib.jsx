@@ -431,7 +431,7 @@ function ParagraphOverrides(doc, importMaps){
 	  var key = kv[0];
 	  var val = kv.splice(1).join("=");
 	  logToFile("trying to set paragraph override " + key + "=" + val);
-	  try { myElement.paragraphs.item(0)[key] = eval(val); } catch (e) { logToFile("error trying to set paragraph override " + key + "=" + val) };
+	  try { myElement.paragraphs.item(0)[key] = eval(val); } catch (e) { logToFile("error trying to set paragraph override " + key + "=" + val + ": "+e) };
 	}
 
     return false;
