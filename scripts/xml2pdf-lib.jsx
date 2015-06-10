@@ -205,7 +205,9 @@ function importXmlIntoTemplate(xmlFile, indtFile, showingWindow) {
 	doc.pages.item(-1).appliedMaster = doc.masterSpreads.item(doc.xmlElements.item(0).xmlAttributes.item("defaultMaster").value);
   
   logToFile("importXmlIntoTemplate("+indtFile+"): running importXML("+xmlFile+")");
-  doc.xmlElements.item(0).importXML(xmlFile); // oddly, a file open dialog box appears here when we work with kindle.indt.
+  // if your XML content has an href attribute, it will be interpreted specially: https://helpx.adobe.com/indesign/using/structuring-documents-xml.html
+  // so, legalese uses the hhref attribute instead of href.
+  doc.xmlElements.item(0).importXML(xmlFile);
   logToFile("importXmlIntoTemplate("+indtFile+"): returned from importXML("+xmlFile+")");
 
   if (doc.xmlElements.item(0).xmlAttributes.item("addnewline").isValid &&
@@ -238,7 +240,8 @@ function importXmlIntoTemplate(xmlFile, indtFile, showingWindow) {
   doc.stories.everyItem().recompose();
 
   __processRuleSet(doc.xmlElements.item(0), [new RestartParagraphNumbering(doc,importMaps),
-											 new ParagraphOverrides(doc,importMaps)
+											 new ParagraphOverrides(doc,importMaps),
+											 new Hyperlinks(doc,importMaps),
 											]);
 
   return doc;
@@ -435,6 +438,21 @@ function ParagraphOverrides(doc, importMaps){
 	}
 
     return false;
+  }
+}
+
+// convert <a href="http://...">text</a> to hyperlinks
+function Hyperlinks(doc, importMaps) {
+  this.name = "Hyperlinks";
+  this.xpath = "//*[@hhref]";
+  this.apply = function(elem, ruleProcessor) {
+    var elemText = elem.texts[0];
+    var linkURL = elem.xmlAttributes.itemByName("hhref").value;
+    var linkSource = doc.hyperlinkTextSources.add(elemText);
+    var linkDest = doc.hyperlinkURLDestinations.add(linkURL);
+	logToFile("trying to create link for text " + elemText + " to " + linkDest);
+    doc.hyperlinks.add(linkSource, linkDest);
+    return true;
   }
 }
 
