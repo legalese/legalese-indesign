@@ -663,7 +663,7 @@ function saveAsIndd(doc, xmlFile) {
 
 // -------------------------------------------------- saveFail
 function saveFail(xmlFile, contents) {
-  var failPath = xmlFile.fsName.replace(/\.xml$/, ".fail");
+  var failPath = xmlFile.fsName.replace(/\.xml$/, ".fail.txt");
   var file = new File(failPath);
   file.open("a");
   file.writeln(contents);
@@ -678,7 +678,7 @@ function hasPDF(xmlFile) {
 
 // -------------------------------------------------- hasFail
 function hasFail(xmlFile) {
-  var failPath = xmlFile.fsName.replace(/\.xml$/, ".fail");
+  var failPath = xmlFile.fsName.replace(/\.xml$/, ".fail.txt");
   return (new File(failPath)).exists;
 }
 
