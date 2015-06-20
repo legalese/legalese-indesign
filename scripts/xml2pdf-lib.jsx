@@ -261,7 +261,7 @@ function initialAdjustments(doc) {
 	var paras = doc.stories.item(story_i).paragraphs;
 	for (var pi=0; pi<paras.length; pi++) {
 	  var para = paras.item(pi);
-	  if (para.contents.match(/:-*$/) || para.contents.match(/:-*\r/)) {
+	  if (para.contents.match(/:-* *$/) || para.contents.match(/:-* *\r/)) {
 		para.keepWithNext = 1;
 	  }
 	}
