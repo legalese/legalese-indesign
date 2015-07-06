@@ -434,7 +434,18 @@ function ParagraphOverrides(doc, importMaps){
 	  var key = kv[0];
 	  var val = kv.splice(1).join("=");
 	  logToFile("trying to set paragraph override " + key + "=" + val);
-	  try { myElement.paragraphs.item(0)[key] = eval(val); } catch (e) { logToFile("error trying to set paragraph override " + key + "=" + val + ": "+e) };
+	  // TODO: security considerations: eval() is not acceptable because
+	  // input val is not trusted. need to rephrase.
+	  try {
+		var evaled = val;
+		if (val == "true" ||
+			val == "false" ||
+			val.match(/^[0-9.]+$/)) {
+		  evaled = eval(val);
+		  logToFile("evaluated " + val + ", became " + evaled);
+		}
+		else if (val.match(/^'(.*)'$/)) { evaled = val.match(/^'(.*)'$/)[1] }
+		myElement.paragraphs.item(0)[key] = evaled; } catch (e) { logToFile("error trying to set paragraph override " + key + "=" + val + ": "+e) };
 	}
 
     return false;
