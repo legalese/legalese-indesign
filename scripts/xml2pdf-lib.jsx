@@ -443,7 +443,7 @@ function ParagraphOverrides(doc, importMaps){
 		var evaled = val;
 		if (val == "true" ||
 			val == "false" ||
-			val.match(/^[0-9.]+$/)) {
+			val.match(/^[a-zA-Z0-9_.]+$/)) {
 		  evaled = eval(val);
 		  logToFile("evaluated " + val + ", became " + evaled);
 		}
