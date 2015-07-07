@@ -40,8 +40,11 @@ function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
 	  doc.updateCrossReferences();
 	  logToFile("xmls2pdf: about to exportToPDF");
 	  exportToPDF(doc, xmlFile);
-	  if (saveIndd || doc.label.match(/saveIndd=true/)) { saveAsIndd(doc, xmlFile); }
-	  if (! keepOpen && doc && doc.isValid) { doc.close(SaveOptions.NO); }
+	  var deleteXML = true;
+	  if (saveIndd || doc.label.match(/saveIndd=true/)) { saveAsIndd(doc, xmlFile); deleteXML = false; }
+	  if (! keepOpen && doc && doc.isValid) { doc.close(SaveOptions.NO);
+											  if (deleteXML) { xmlFile.remove() }
+											}
 	  logToFile("xmls2pdf: finished " + xmlFile.fullName);
 	}
 	catch (error) {
