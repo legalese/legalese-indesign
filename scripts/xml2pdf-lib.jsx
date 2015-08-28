@@ -260,6 +260,7 @@ function initialAdjustments(doc) {
   }
 
   // if a paragraph ends with :-? then set its keepWithNext to 1
+  // TODO: sadly, this doesn't always work. maybe .contents has some hidden characters or XML that causes it to not match /$/.
   for (var story_i = 0; story_i<doc.stories.length; story_i++) {
 	var paras = doc.stories.item(story_i).paragraphs;
 	for (var pi=0; pi<paras.length; pi++) {
@@ -673,6 +674,9 @@ function exportToPDF(doc, xmlFile) {
 function saveAsIndd(doc, xmlFile) {
   var inddPath = xmlFile.fsName.replace(/\.xml$/, ".indd");
   doc.save(new File(inddPath));
+
+  // TODO: export to IDML as well, for those with older versions of InDesign.
+  // http://jongware.mit.edu/idcs6js/pe_ExportFormat.html
 }
 
 // -------------------------------------------------- saveFail
