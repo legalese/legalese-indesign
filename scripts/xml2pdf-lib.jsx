@@ -654,6 +654,12 @@ function AddFormFields(doc) {
 }
 
 // -------------------------------------------------- exportToPDF
+// TODO: fix this by
+// outputting the PDF to a temporary folder
+// atomically testing for the continued existence of the output folder
+// mv'ing the output PDF into the output folder
+// https://app.asana.com/0/1404297026932/49012096355071
+
 function exportToPDF(doc, xmlFile) {
   var pdfPath = xmlFile.fsName.replace(/\.xml$/, ".pdf");
   with(app.interactivePDFExportPreferences){
