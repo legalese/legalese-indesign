@@ -233,9 +233,13 @@ function importXmlIntoTemplate(xmlFile, indtFile, showingWindow) {
   
   __processRuleSet(doc.xmlElements.item(0), [new InsertTextVariables(doc,importMaps) ]);
 
-  logToFile("mapping tags to styles");
+  logToFile("mapping tags to styles, with error trapping");
 
-  doc.mapXMLTagsToStyles();
+  try {
+	doc.mapXMLTagsToStyles();
+  } catch (e) {
+	logToFile("caught error: "+ e);
+  };
 
   // findReplaceFixes
   findReplaceFixes(doc, doc.stories);
