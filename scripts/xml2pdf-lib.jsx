@@ -1,6 +1,6 @@
 // library used by
-// xml2pdf      -- the interactive runtime
-// xml2pdf-idle -- the idle task launched once which continuously monitors the Legalese Incoming folder
+// xml2pdf       -- the interactive runtime
+// xml2pdf-sleep -- the idle task launched once which continuously monitors the Legalese Incoming folder
 //
 // mengwong@legalese.io mengwong@jfdi.asia 20150104
 

@@ -1,0 +1,12 @@
+STOPPING
+- is a previous run running? if you see Google Drive/incoming/i-am-running.txt, then it probably is.
+- to get the previous run to stop, in Google Drive/incoming/, touch stop-please.txt
+- the xml2pdf-sleep.jsx script should notice that .txt file after a minute and shut down gracefully.
+- if the script is hosed it won't pick that up, so Force Quit it after a minute.
+
+STARTING
+- switch to InDesign
+- locate the Scripts panel – it should already be open. it's the one that has a big S on it.
+- double-click xml2pdf-sleep.jsx
+- you will receive confirmation in the form of a dialog box.
+- you can try to make the dialog box go away but clicking on the button will probably have no effect.
