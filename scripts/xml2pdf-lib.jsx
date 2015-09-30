@@ -229,6 +229,14 @@ function importXmlIntoTemplate(xmlFile, indtFile, showingWindow) {
 	doc.label += "saveIndd=true\n";
   }
 
+  // if the root element has omitDate=true then set doc.label to omitDate ... this is read by main()
+  if (doc.xmlElements.item(0).xmlAttributes.item("omitDate").isValid &&
+	  doc.xmlElements.item(0).xmlAttributes.item("omitDate").value == "true") {
+	if (doc.label && doc.label.length) { doc.label += "\n" }
+	logToFile("source XML wants us to omitDate");
+	doc.label += "omitDate=true\n";
+  }
+
   logToFile("calling InsertTextVariables ruleset");
   
   __processRuleSet(doc.xmlElements.item(0), [new InsertTextVariables(doc,importMaps) ]);
@@ -273,6 +281,13 @@ function initialAdjustments(doc) {
 		para.keepWithNext = 1;
 	  }
 	}
+  }
+
+  // delete the text of the timestamp frame on the master page(s) if omitDate == true
+  if (doc.label.match(/omitDate=true/)) {
+	logToFile("*** honouring omitDate=true");
+	// http://www.indiscripts.com/post/2010/06/on-everyitem-part-1
+	doc.masterSpreads.everyItem().textFrames.itemByName("datestamp").contents="";
   }
 }
 
