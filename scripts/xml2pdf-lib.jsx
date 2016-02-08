@@ -716,7 +716,7 @@ function saveFail(xmlFile, contents) {
 // -------------------------------------------------- hasPDF
 function hasPDF(xmlFile) {
   var pdfPath = xmlFile.fsName.replace(/\.xml$/, ".pdf");
-  return (new File(pdfPath)).exists;
+  return ((new File(pdfPath)).exists);
 }
 
 // -------------------------------------------------- hasFail
