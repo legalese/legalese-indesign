@@ -451,6 +451,12 @@ function findReplaceFixes(doc, stories) {
     app.changeTextPreferences.changeTo = '^=';
     stories.everyItem().changeText();
 
+    // change any instance of the rupee symbol to minion pro because adobe text pro doesn't support it at the moment
+    app.findTextPreferences.findWhat = '₹';
+    app.findTextPreferences.appliedFont = 'Adobe Text Pro';
+    app.changeTextPreferences.appliedFont = 'Minion Pro';
+    stories.everyItem().changeText();
+
     //Clear the find/change text preferences after the search.
     app.findTextPreferences = NothingEnum.nothing;
     app.changeTextPreferences = NothingEnum.nothing;
