@@ -4,7 +4,7 @@
 //
 // mengwong@legalese.io mengwong@jfdi.asia 20150104
 
-#include "/Applications/Adobe InDesign CC/Scripts/XML Rules/glue code.jsx"
+#include "/Applications/Adobe InDesign CC 2014/Scripts/XML Rules/glue code.jsx"
 
 // -------------------------------------------------- xmls2pdf
 function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
