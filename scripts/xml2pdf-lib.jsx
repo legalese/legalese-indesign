@@ -107,7 +107,7 @@ function SpanStyles(doc) {
   this.name = "SpanStyles";
   this.xpath = "//span[@style]";
   var xtbl = { "font-family" : "appliedFont",
-			   "font-style"  : "appliedStyle" };
+			   "font-style"  : "fontStyle" };
   this.apply = function(myElement, myRuleProcessor) {
 	if (myElement.xmlAttributes.item("style").isValid) {
 	  logToFile("SpanStyles: found <span style> with " + myElement.xmlAttributes.item("style").value);
