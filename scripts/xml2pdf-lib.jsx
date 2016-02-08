@@ -30,6 +30,7 @@ function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
 	  initialAdjustments(doc);
 	  doc.recompose(); // force smart text reflow otherwise the signature fields won't add properly.
 	  addCrossReferences(doc);
+	  handleSpanStyles(doc);
 	  logToFile("xmls2pdf: about to constructFormFields. page length is " + doc.pages.length);
 	  constructFormFields(doc);
 	  setSignaturePageToAMaster(doc);
@@ -62,6 +63,11 @@ function addCrossReferences(doc) {
   __processRuleSet(doc.xmlElements.item(0), [new InsertCrossReferences(doc)     ]);
 }
 
+// -------------------------------------------------- handleSpanStyles
+function handleSpanStyles(doc) {
+  __processRuleSet(doc.xmlElements.item(0), [new SpanStyles(doc)     ]);
+}
+
 // -------------------------------------------------- LearnParagraphDestinations
 // the first part of the crossreferences logic.
 // we look for paragraphs with an "xname" attribute.
@@ -77,6 +83,7 @@ function LearnParagraphDestinations(doc){
   }
 }
 
+// -------------------------------------------------- InsertCrossReferences
 // ... <xref to="foo" /> ...
 // ... <xref to="foo" format="Paragraph Number" /> ...
 // ... <xref to="foo" format="Paragraph Number (firstbold)" /> ...
@@ -93,7 +100,34 @@ function InsertCrossReferences(doc) {
     return true;
   }
 }
-  
+
+// -------------------------------------------------- SpanStyles
+// ... <span style="font-family: XXX; font-style: YYY">Text</span>
+function SpanStyles(doc) {
+  this.name = "SpanStyles";
+  this.xpath = "//span[@style]";
+  var xtbl = { "font-family" : "appliedFont",
+			   "font-style"  : "appliedStyle" };
+  this.apply = function(myElement, myRuleProcessor) {
+	if (myElement.xmlAttributes.item("style").isValid) {
+	  logToFile("SpanStyles: found <span style> with " + myElement.xmlAttributes.item("style").value);
+	  var styles = myElement.xmlAttributes.item("style").value.split(/;\s+/);
+	  var characterStyleObj = { };
+	  for (var style_i in styles) {
+		var expr = styles[style_i].split(/\s*:\s*/);
+		characterStyleObj[xtbl[expr[0]] || expr[0]] = expr[1];
+		// create unique signature/name for the characterstyle so we don't have to recreate one each time
+	  }
+	  var objKeys = [];
+	  var objValues = [];
+	  for (var cSk in characterStyleObj) { objKeys.push(cSk); objValues.push(characterStyleObj[cSk]) }
+	  logToFile("SpanStyles: applying characterStyle (keys=" + objKeys + "), values=("+objValues+")");
+	  var characterStyle = doc.characterStyles.add(characterStyleObj);
+	  myElement.xmlContent.applyCharacterStyle(characterStyle);
+	}
+	return true;
+  }
+}
 
 // -------------------------------------------------- isXmlOrFolder
 function isXmlOrFolder(file) {
@@ -127,7 +161,10 @@ function identifyXmlFiles(mode, rootFolder) {
 	var todo = findXmls(rootFolder);
 	for (var i in todo) {
 	  var xmlFile = todo[i];
-	  if (hasPDF(xmlFile) || hasFail(xmlFile)) { continue; }
+	  if (hasPDF(xmlFile))  { // logToFile(xmlFile.fsName + " ... PDF output exists, nothing to do.");
+							  continue; }
+	  if (hasFail(xmlFile)) { // logToFile(xmlFile.fsName + " ... fail file exists, nothing to do. delete the .fail.txt to try again.");
+							  continue; }
 	  else { xmlFiles.push(xmlFile); }
 	}
   }
