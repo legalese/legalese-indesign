@@ -97,6 +97,8 @@ function InsertCrossReferences(doc) {
 	var src = doc.crossReferenceSources.add(myElement.insertionPoints.item(0), doc.crossReferenceFormats.itemByName(crf));
 	logToFile("crossreferences: creating link " + myElement.xmlAttributes.item("to").value);
 	doc.hyperlinks.add(src,dest);
+
+	// TODO: turn the space before the src into a nonbreaking space
     return true;
   }
 }
