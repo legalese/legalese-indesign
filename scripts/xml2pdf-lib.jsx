@@ -42,6 +42,11 @@ function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
 	  logToFile("xmls2pdf: about to exportToPDF");
 	  exportToPDF(doc, xmlFile);
 	  var deleteXML = true;
+	  if ("google Drive pops up an annoying modal dialog saying Heads Up, you just deleted something") {
+		// this is true as of 1.28.1549.1322 on 20160309
+		deleteXML = false;
+		// so that the system doesn't hang
+	  }
 	  if (saveIndd || doc.label.match(/saveIndd=true/)) { saveAsIndd(doc, xmlFile); deleteXML = false; }
 	  if (! keepOpen && doc && doc.isValid) { doc.close(SaveOptions.NO);
 											  if (deleteXML) { xmlFile.remove() }
@@ -97,6 +102,8 @@ function InsertCrossReferences(doc) {
 	var src = doc.crossReferenceSources.add(myElement.insertionPoints.item(0), doc.crossReferenceFormats.itemByName(crf));
 	logToFile("crossreferences: creating link " + myElement.xmlAttributes.item("to").value);
 	doc.hyperlinks.add(src,dest);
+
+	// TODO: turn the space before the src into a nonbreaking space
     return true;
   }
 }
