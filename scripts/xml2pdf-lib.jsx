@@ -42,11 +42,11 @@ function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
 	  logToFile("xmls2pdf: about to exportToPDF");
 	  exportToPDF(doc, xmlFile);
 	  var deleteXML = true;
-	  if ("google Drive pops up an annoying modal dialog saying Heads Up, you just deleted something") {
-		// this is true as of 1.28.1549.1322 on 20160309
-		deleteXML = false;
-		// so that the system doesn't hang
-	  }
+//	  if ("google Drive pops up an annoying modal dialog saying Heads Up, you just deleted something") {
+//		// this is true as of 1.28.1549.1322 on 20160309
+//		deleteXML = false;
+//		// so that the system doesn't hang
+//	  }
 	  if (saveIndd || doc.label.match(/saveIndd=true/)) { saveAsIndd(doc, xmlFile); deleteXML = false; }
 	  if (! keepOpen && doc && doc.isValid) { doc.close(SaveOptions.NO);
 											  if (deleteXML) { xmlFile.remove() }
