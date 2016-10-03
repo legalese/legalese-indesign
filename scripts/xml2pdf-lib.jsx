@@ -429,6 +429,8 @@ function findReplaceFixes(doc, stories) {
     app.findTextPreferences = NothingEnum.nothing;
     app.changeTextPreferences = NothingEnum.nothing;
 
+  logToFile("findReplaceFixes(): starting");
+
     //Set the find options.
     app.findChangeTextOptions.caseSensitive = false;
     app.findChangeTextOptions.includeFootnotes = false;
@@ -438,26 +440,31 @@ function findReplaceFixes(doc, stories) {
     app.findChangeTextOptions.includeMasterPages = false;
     app.findChangeTextOptions.wholeWord = false;
 
+  logToFile("findReplaceFixes(): smart doublequotes");
     // equivalent to the preset that replaces dumb doublequotes with smart doublequotes
     app.findTextPreferences.findWhat = '^"';
     app.changeTextPreferences.changeTo = '"';
     stories.everyItem().changeText();
 
+  logToFile("findReplaceFixes(): smart singlequotes");
     // equivalent to the preset that replaces dumb singlequotes with smart singlequotes
     app.findTextPreferences.findWhat = '^\'';
     app.changeTextPreferences.changeTo = '\'';
     stories.everyItem().changeText();
 
+  logToFile("findReplaceFixes(): triple dashes to emdash");
     // replace triple dashes with single emdash
     app.findTextPreferences.findWhat = '---';
     app.changeTextPreferences.changeTo = '^_';
     stories.everyItem().changeText();
 
+  logToFile("findReplaceFixes(): double dashes to endash");
     // equivalent to the preset that replaces a double dash with a single endash
     app.findTextPreferences.findWhat = '--';
     app.changeTextPreferences.changeTo = '^=';
     stories.everyItem().changeText();
 
+  logToFile("findReplaceFixes(): rupee needs minion pro");
     // change any instance of the rupee symbol to minion pro because adobe text pro doesn't support it at the moment
     app.findTextPreferences.findWhat   = 
     app.changeTextPreferences.changeTo = String.fromCharCode(0x20B9);
@@ -465,6 +472,7 @@ function findReplaceFixes(doc, stories) {
     app.changeTextPreferences.fontStyle = 'Regular';
     stories.everyItem().changeText();
 
+  logToFile("findReplaceFixes(): done!");
     //Clear the find/change text preferences after the search.
     app.findTextPreferences = NothingEnum.nothing;
     app.changeTextPreferences = NothingEnum.nothing;
