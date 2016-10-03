@@ -42,3 +42,77 @@ So, the steps are:
 
 The robot should probably only accept folder shares from trusted senders.
 
+* INSTALL -- InDesign robot on a mac
+
+A caveat before you do this -- the robot is not yet designed to run in parallel; it assumes only one instance is running at any time. If you run multiple instances you may end up with google drive sync conflicts PDFs. However, as long as the PDFs are there, the main Google Apps scripts should be able to perform.
+
+To set up a new instance of the InDesign robot,
+
+** install InDesign CC 2014
+
+** install Google Drive and sync:
+
+20161003-10:50:04 robot@venice2:~/Google Drive% ls -l
+total 688
+-rw-r--r--@   1 robot  staff     0 Oct  3 10:28 Icon?
+-rw-------    1 robot  staff   247 Oct  3 08:59 browser.gsheet
+drwxr-xr-x  211 robot  staff  7174 Oct  3 10:48 done
+drwxr-xr-x   25 robot  staff   850 Oct  3 10:48 incoming
+20161003-10:50:09 robot@venice2:~/Google Drive% 
+
+** configure Google Drive to run noninteractively
+
+under Preferences, Advanced, uncheck "Show confirmation when removing items from shared folders"
+
+if you don't do this, every time the InDesign script deletes a .xml file, Google Drive will helpfully pop up a modal dialog and stop operating. Super annoying.
+
+** clone the repo
+
+20161003-10:54:09 robot@venice2:~/non-db-src/l% git clone https://github.com/legalese/legalese-indesign.git indesign
+
+** set up the scripts
+
+20161003-10:53:21 robot@venice2:~/Library/Preferences/Adobe InDesign/Version 10.0/en_US/Scripts/Scripts Panel% ln -s ~/non-db-src/l/indesign/scripts/xml2pdf{-sleep,-lib,}.jsx .
+20161003-10:53:23 robot@venice2:~/Library/Preferences/Adobe InDesign/Version 10.0/en_US/Scripts/Scripts Panel% ls -al
+total 24
+drwxr-xr-x  5 robot  staff  170 Oct  3 10:53 .
+drwxr-xr-x  3 robot  staff  102 Oct  3 10:24 ..
+lrwxr-xr-x  1 robot  staff   58 Oct  3 10:53 xml2pdf-lib.jsx -> /Users/robot/non-db-src/l/indesign/scripts/xml2pdf-lib.jsx
+lrwxr-xr-x  1 robot  staff   60 Oct  3 10:53 xml2pdf-sleep.jsx -> /Users/robot/non-db-src/l/indesign/scripts/xml2pdf-sleep.jsx
+lrwxr-xr-x  1 robot  staff   54 Oct  3 10:53 xml2pdf.jsx -> /Users/robot/non-db-src/l/indesign/scripts/xml2pdf.jsx
+
+** make sure the XML Rules glue code is installed
+
+20161003-10:56:42 robot@venice2:/Applications/Adobe InDesign CC 2014/Scripts/XML Rules% ls -al
+total 80
+drwxrwxr-x  5 root  admin    170 Jan 30  2016 .
+drwxrwxr-x  8 root  admin    272 Oct  3 10:43 ..
+-rw-rw-r--  1 root  admin   3668 Jan 30  2016 glue code.jsx
+-rw-rw-r--  1 root  admin  26804 Jan 30  2016 glue code.scpt
+-rw-rw-r--  1 root  admin   5642 Jan 30  2016 glue code.vbs
+
+** create the ~build~ directory
+
+mkdir ~/non-db-src/l/build
+
+later, the script will output an indesignlog.txt to here
+
+** from the scripts panel in InDesign, run xml2pdf-sleep.jsx
+
+STOPPING
+- is a previous run running? if you see Google Drive/incoming/i-am-running.txt, then it probably is.
+- to get the previous run to stop, in Google Drive/incoming/, touch stop-please.txt
+- the xml2pdf-sleep.jsx script should notice that .txt file after a minute and shut down gracefully.
+- if the script is hosed it won't pick that up, so Force Quit it after a minute.
+
+STARTING
+- switch to InDesign
+- locate the Scripts panel – it should already be open. it's the one that has a big S on it.
+- double-click xml2pdf-sleep.jsx
+- you will receive confirmation in the form of a dialog box.
+- you can try to make the dialog box go away but clicking on the button will probably have no effect.
+
+** view the indesignlog file
+
+20161003-11:06:18 mengwong@venice2:~/non-db-src/l/indesign% perl -ple 's/\r+/\n/g' ~/non-db-src/l/build/indesignlog.txt | less
+
