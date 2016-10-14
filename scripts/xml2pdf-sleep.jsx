@@ -27,7 +27,8 @@ var IPC_FILE = "stop-please.txt";
 var RUN_FILE = "i-am-running.txt";
 
 main();
-
+var RUNFILE_INTERVAL = 120;
+var last_touched_runfile = new Date();
 
 function main() {
 //  alert("rootfolder is " + ROOTFOLDER);
@@ -44,7 +45,10 @@ function main() {
 	i_am_running(rootFolder);
 	while (still_want_to_run) {
 	  sleep_for_a_while(rootFolder);
-	  xml2pdf_main();
+	  if (last_touched_runfile - (new Date()) > RUNFILE_INTERVAL) {
+		i_am_running(rootFolder);
+		last_touched_runfile = new Date();
+	  }
 	}
 //	alert("exiting");
   }
@@ -94,7 +98,7 @@ function i_was_previously_running(folder) {
 function i_am_running(folder) {
   var run_file = new File(ROOTFOLDER + "/" + RUN_FILE);
   run_file.open("w");
-  run_file.writeln("hellos, i am running.");
+  run_file.writeln("hellos, i am running, at " + (new Date()));
   run_file.close();
 //  alert("wrote runfile to " + ROOTFOLDER+"/"+RUN_FILE);
 }
