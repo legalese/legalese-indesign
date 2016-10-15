@@ -41,9 +41,10 @@ function main() {
 	// you should just create the stop-please.txt file by hand.
   }
   else {
-	alert("starting sleep run.\nto stop, touch " + ROOTFOLDER + "/" + IPC_FILE);
 	i_am_running(rootFolder);
+	alert("starting sleep run.\nto stop, touch " + ROOTFOLDER + "/" + IPC_FILE);
 	while (still_want_to_run) {
+	  xml2pdf_main();
 	  sleep_for_a_while(rootFolder);
 	  if (last_touched_runfile - (new Date()) > RUNFILE_INTERVAL) {
 		i_am_running(rootFolder);
