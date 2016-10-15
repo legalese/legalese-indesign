@@ -42,14 +42,16 @@ function main() {
   }
   else {
 	i_am_running(rootFolder);
+	last_touched_runfile = new Date();
+
 	alert("starting sleep run.\nto stop, touch " + ROOTFOLDER + "/" + IPC_FILE);
 	while (still_want_to_run) {
-	  xml2pdf_main();
-	  sleep_for_a_while(rootFolder);
 	  if (last_touched_runfile - (new Date()) > RUNFILE_INTERVAL) {
 		i_am_running(rootFolder);
 		last_touched_runfile = new Date();
 	  }
+	  xml2pdf_main();
+	  sleep_for_a_while(rootFolder);
 	}
 //	alert("exiting");
   }
