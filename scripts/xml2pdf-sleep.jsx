@@ -103,7 +103,7 @@ function i_am_running(folder) {
   run_file.open("w");
   run_file.writeln("hellos, i am running, at " + (new Date()));
   run_file.close();
-  app.doScript('ls -lR >> i-am-running.txt', ScriptLanguage.applescriptLanguage);  
+  app.doScript('ls -lR incoming >> i-am-running.txt', ScriptLanguage.applescriptLanguage);  
 //  alert("wrote runfile to " + ROOTFOLDER+"/"+RUN_FILE);
 }
 
