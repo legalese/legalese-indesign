@@ -121,7 +121,7 @@ function i_am_running(folder) {
     if (incomingFiles[i] instanceof Folder) {
       var subdirFiles = incomingFiles[i].getFiles();
       for (var j in subdirFiles) {
-        run_file.writeln("    " + subdirFiles[j].name);
+        run_file.writeln("  " + subdirFiles[j].name);
       }
     }
   }
