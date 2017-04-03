@@ -102,9 +102,26 @@ function i_am_running(folder) {
   var run_file = new File(ROOTFOLDER + "/" + RUN_FILE);
   run_file.open("w");
   run_file.writeln("hellos, i am running, at " + (new Date()));
+
+  //  app.doScript('ls -lR incoming >> i-am-running.txt', ScriptLanguage.applescriptLanguage);  
+  // sadly, this does not work:
+  //  Error Number: -2740
+  //  Error String: A indentifier can't go after this identifier.
+  // Engine: session
+  // Line: 106
+  // Source: app.doScript('ls -lR incoming >> i-am-running.txt',
+
+  // why? because that method expects applescript, but the first argument is a shell script.
+  // so we're going to have to do an ls by hand.
+  // see http://jongware.mit.edu/idcs6js/pc_Folder.html for ExtendScript documentation.
+  var incomingFolder = rootFolder.getFiles("incoming");
+  if (incomingFolder != undefined && incomingFolder.length == 1) {
+    incomingFolder[0].map(function(fileObj) { run_file.writeln(fileObj.name) });
+  }
+  
   run_file.close();
-  app.doScript('ls -lR incoming >> i-am-running.txt', ScriptLanguage.applescriptLanguage);  
-//  alert("wrote runfile to " + ROOTFOLDER+"/"+RUN_FILE);
+  
+  //  alert("wrote runfile to " + ROOTFOLDER+"/"+RUN_FILE);
 }
 
 function xml2pdf_main(){
