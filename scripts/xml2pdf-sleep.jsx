@@ -113,11 +113,17 @@ function i_am_running(folder) {
   //  Source: app.doScript('ls -lR incoming >> i-am-running.txt',
 
   // why? because that method expects applescript, but the first argument is a shell script.
-  // so we're going to have to do an ls by hand.
+  // so we're going to have to do an ls -R by hand.
   // see http://jongware.mit.edu/idcs6js/pc_Folder.html for ExtendScript documentation.
   var incomingFiles = rootFolder.getFiles();
   for (var i in incomingFiles) {
     run_file.writeln(incomingFiles[i].name);
+    if (incomingFiles[i] instanceof Folder) {
+      var subdirFiles = incomingFiles[i].getFiles();
+      for (var j in subdirFiles) {
+        run_file.writeln("    " + subdirFiles[j].name);
+      }
+    }
   }
   
   run_file.close();
