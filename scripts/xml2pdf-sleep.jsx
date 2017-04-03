@@ -107,19 +107,14 @@ function i_am_running(folder) {
   // sadly, this does not work:
   //  Error Number: -2740
   //  Error String: A indentifier can't go after this identifier.
-  // Engine: session
-  // Line: 106
-  // Source: app.doScript('ls -lR incoming >> i-am-running.txt',
+  //  Engine: session
+  //  Line: 106
+  //  Source: app.doScript('ls -lR incoming >> i-am-running.txt',
 
   // why? because that method expects applescript, but the first argument is a shell script.
   // so we're going to have to do an ls by hand.
   // see http://jongware.mit.edu/idcs6js/pc_Folder.html for ExtendScript documentation.
-  (function(folderName){
-    var folderFiles = rootFolder.getFiles(folderName);
-    if (folderFiles != undefined && folderFiles.length == 1) {
-      folderFiles[0].getFiles().map(function(fileObj) { run_file.writeln(fileObj.name) });
-    }
-  })("incoming");
+  rootFolder.getFiles().map(function(fileObj) { run_file.writeln(fileObj.name) });
   
   run_file.close();
   
