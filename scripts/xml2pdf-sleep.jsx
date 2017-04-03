@@ -114,7 +114,10 @@ function i_am_running(folder) {
   // why? because that method expects applescript, but the first argument is a shell script.
   // so we're going to have to do an ls by hand.
   // see http://jongware.mit.edu/idcs6js/pc_Folder.html for ExtendScript documentation.
-  rootFolder.getFiles().map(function(fileObj) { run_file.writeln(fileObj.name) });
+  var incomingFiles = rootFolder.getFiles();
+  for (var i in incomingFiles) {
+    run_file.writeln(incomingFiles[i].name);
+  }
   
   run_file.close();
   
