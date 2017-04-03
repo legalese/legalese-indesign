@@ -102,6 +102,7 @@ function i_am_running(folder) {
   var run_file = new File(ROOTFOLDER + "/" + RUN_FILE);
   run_file.open("w");
   run_file.writeln("hellos, i am running, at " + (new Date()));
+  run_file.writeln("\nBTW linefeed is " + run_file.lineFeed + "\n");
 
   //  app.doScript('ls -lR incoming >> i-am-running.txt', ScriptLanguage.applescriptLanguage);  
   // sadly, this does not work:
