@@ -713,7 +713,9 @@ function AddFormFields(doc) {
 	logToFile("probably died.");
 
 	// https://secure.echosign.com/doc/TextFormsTutorial.pdf
-	// http://bgsfin.com/Add-Ons/SmartFormsTutorial.pdf
+	// http://bgsfin.com/Add-Ons/SmartFormsTutorial.pdbf
+    // that url has stopped working. check web.archive.org
+    // or https://github.com/legalese/legalese-indesign/blob/master/doc/SmartFormsTutorial.pdf
 
 	if (el.xmlAttributes.item("unmailed").isValid) {
 	  logToFile("el.xmlAttributes.item(unmailed) = " + el.xmlAttributes.item("unmailed").value);
