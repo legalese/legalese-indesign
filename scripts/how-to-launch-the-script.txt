@@ -5,7 +5,7 @@ STOPPING
 - if the script is hosed it won't pick that up, so Force Quit it after a minute.
 
 STARTING
-- switch to InDesign
+- switch to InDesign CC 2014. Not CS6, it can't open templates saved in CC versions of InDesign.
 - locate the Scripts panel – it should already be open. it's the one that has a big S on it.
 - double-click xml2pdf-sleep.jsx
 - you will receive confirmation in the form of a dialog box.
