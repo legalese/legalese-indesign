@@ -65,7 +65,7 @@ function xml2pdf_main(){
 
   var xmlFiles = identifyXmlFiles("recurse", rootFolder); // recurse | queryUser
   var indtFile = identifyIndtFile("hardcoded", // hardcoded | queryUser
-								  "~/non-db-src/legalese/build/00 legalese template.indt");
+								  "~/src/legalese-indesign/build/00 legalese template.indt");
   if (xmlFiles.length > 0) {
 	app.scriptPreferences.enableRedraw=interactive; 
 	xmls2pdf(xmlFiles, indtFile, interactive);

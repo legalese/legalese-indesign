@@ -50,6 +50,11 @@ To set up a new instance of the InDesign robot,
 
 ** install InDesign CC 2014
 
+** install a bunch of fonts that are used by the templates
+
+*** adobe text pro
+*** adobe text pro italic
+
 ** install Google Drive and sync:
 
 20161003-10:50:04 robot@venice2:~/Google Drive% ls -l
@@ -68,7 +73,7 @@ if you don't do this, every time the InDesign script deletes a .xml file, Google
 
 ** clone the repo
 
-20161003-10:54:09 robot@venice2:~/non-db-src/l% git clone https://github.com/legalese/legalese-indesign.git indesign
+20180625-10:54:09 robot@venice4:~/src% git clone https://github.com/legalese/legalese-indesign.git
 
 ** set up the scripts
 

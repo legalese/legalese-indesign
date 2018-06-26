@@ -18,7 +18,7 @@ function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
 
 	  // maybe each xmlFile can specify its desired indt template filename?
 	  var indtFile = identifyIndtFile("fromXML", // fromXML | hardcoded | queryUser
-									  "~/non-db-src/l/indesign/indt/coverpage.indt",
+									  "~/src/legalese-indesign/indt/coverpage.indt",
 									  xmlFile
 									 );
 
@@ -788,7 +788,7 @@ function hasFail(xmlFile) {
 
 // -------------------------------------------------- logToFile
 function logToFile(message) {
-  var logfile = new File("~/non-db-src/l/build/indesignlog.txt");
+  var logfile = new File("~/tmp/build/indesignlog.txt");
   logfile.open("a");
   logfile.writeln((new Date()) + "\t" + message);
   logfile.close();
