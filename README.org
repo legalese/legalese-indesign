@@ -73,11 +73,17 @@ if you don't do this, every time the InDesign script deletes a .xml file, Google
 
 ** clone the repo
 
-20180625-10:54:09 robot@venice4:~/src% git clone https://github.com/legalese/legalese-indesign.git
+#+BEGIN_SRC
+you may need to xcode-select --install
+
+mkdir -p src/l tmp/build
+cd src/l
+git clone https://github.com/legalese/legalese-indesign.git
+#+END_SRC
 
 ** set up the scripts
 
-20161003-10:53:21 robot@venice2:~/Library/Preferences/Adobe InDesign/Version 10.0/en_US/Scripts/Scripts Panel% ln -s ~/non-db-src/l/indesign/scripts/xml2pdf{-sleep,-lib,}.jsx .
+20161003-10:53:21 robot@venice2:~/Library/Preferences/Adobe InDesign/Version 10.0/en_US/Scripts/Scripts Panel% ln -s ~/non-db-src/l/legalese-indesign/scripts/xml2pdf{-sleep,-lib,}.jsx .
 20161003-10:53:23 robot@venice2:~/Library/Preferences/Adobe InDesign/Version 10.0/en_US/Scripts/Scripts Panel% ls -al
 total 24
 drwxr-xr-x  5 robot  staff  170 Oct  3 10:53 .
@@ -87,6 +93,8 @@ lrwxr-xr-x  1 robot  staff   60 Oct  3 10:53 xml2pdf-sleep.jsx -> /Users/robot/n
 lrwxr-xr-x  1 robot  staff   54 Oct  3 10:53 xml2pdf.jsx -> /Users/robot/non-db-src/l/indesign/scripts/xml2pdf.jsx
 
 ** make sure the XML Rules glue code is installed
+
+a copy of the ~XML Rules~ folder is available in this repo.
 
 20161003-10:56:42 robot@venice2:/Applications/Adobe InDesign CC 2014/Scripts/XML Rules% ls -al
 total 80
@@ -98,7 +106,7 @@ drwxrwxr-x  8 root  admin    272 Oct  3 10:43 ..
 
 ** create the ~build~ directory
 
-mkdir ~/non-db-src/l/build
+mkdir -p ~/tmp/build
 
 later, the script will output an indesignlog.txt to here
 

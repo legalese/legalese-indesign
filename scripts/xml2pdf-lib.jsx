@@ -18,7 +18,7 @@ function xmls2pdf(xmlFiles, showingWindow, saveIndd, keepOpen) {
 
 	  // maybe each xmlFile can specify its desired indt template filename?
 	  var indtFile = identifyIndtFile("fromXML", // fromXML | hardcoded | queryUser
-									  "~/src/legalese-indesign/indt/coverpage.indt",
+									  "~/src/l/legalese-indesign/indt/coverpage.indt",
 									  xmlFile
 									 );
 
@@ -197,7 +197,7 @@ function identifyIndtFile(mode, path, xmlFile) {
 
 	if (templateSpec != undefined && templateSpec.length) {
 	  logToFile("identifyIndtFile: read templateSpec = " + templateSpec + " out of XML file.");
-	  path = "~/non-db-src/l/indesign/indt/" + templateSpec;
+	  path = "~/src/l/legalese-indesign/indt/" + templateSpec;
 	  mode = "hardcoded";
 	}
 	else {
